@@ -1,6 +1,6 @@
 function opt_vertical_seam = find_opt_vertical_seam(energy_map)
     [height,width] = size(energy_map);
-    
+
     for i = 2:height
         for j = 1:width
             if j == 1

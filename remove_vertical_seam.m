@@ -1,7 +1,6 @@
-function  output = remove_vertical_seam(input, energy_map)
+function  output = remove_vertical_seam(input, opt_vertical_seam)
     [height,width,channels] = size(input);
     output = zeros(height,width - 1,channels);
-    opt_vertical_seam = find_opt_vertical_seam(energy_map);
     
     for i = 1:height
         output(i,1:opt_vertical_seam(i) - 1,:) = input(i,1:opt_vertical_seam(i) - 1,:); 

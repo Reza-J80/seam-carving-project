@@ -1,8 +1,6 @@
-function  output = add_vertical_seam(input, energy_map)
+function  output = add_vertical_seam(input, opt_vertical_seam)
     [height,width,channels] = size(input);
-    output = zeros(height,width + 1,channels);
-    opt_vertical_seam = find_opt_vertical_seam(energy_map);
-    
+    output = zeros(height,width + 1,channels);    
     for i = 1:height
         if opt_vertical_seam(i) == width
             opt_vertical_seam(i) = width - 1;

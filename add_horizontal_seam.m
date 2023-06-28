@@ -1,8 +1,6 @@
-function  output = add_horizontal_seam(input, energy_map)
+function  output = add_horizontal_seam(input, opt_horizontal_seam)
     [height,width,channels] = size(input);
-    output = zeros(height - 1,width,channels);
-    opt_horizontal_seam = find_opt_horizontal_seam(energy_map);
-
+    output = zeros(height + 1,width,channels);
     for i = 1:width
         if opt_horizontal_seam(i) == height
             opt_horizontal_seam(i) = height - 1;

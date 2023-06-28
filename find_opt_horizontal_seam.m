@@ -1,6 +1,6 @@
 function opt_horizontal_seam = find_opt_horizontal_seam(energy_map)
     [height,width] = size(energy_map);
-    
+
     for i = 2:width
         for j = 1:height
             if j == 1
