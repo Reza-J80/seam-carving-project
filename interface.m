@@ -10,7 +10,7 @@ input = im2double(imread([path, name, '\', name,'.png']));
 height = size(input,1);
 width = size(input,2);
 
-[output, energy_map] = seam_carving(path, name, round(height / 1), round(width / 2));
+[output, energy_map] = seam_carving(path, name, round(height / 2), round(width / 1));
 
 imshow(input,[]);
 title('input');
