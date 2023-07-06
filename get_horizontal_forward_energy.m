@@ -1,6 +1,8 @@
-function energy = get_horizontal_forward_energy(image)
+function [M,from] = get_horizontal_forward_energy(image, energy_map)
+    image = rgb2gray(image);
     [height,width] = size(image);
-    energy = zeros(height,width);
+    M = zeros(height,width);
+    from = zeros(height,width);
 
     U = circshift(image,1,2);
     L = circshift(image,-1,1);
@@ -8,16 +10,20 @@ function energy = get_horizontal_forward_energy(image)
     cv = abs(L-R);
     cl = abs(U-L) + cv;
     cr = abs(U-R) + cv;
-    energy(:,1) = image(:,1) - image(:,1);
+    M(:,1) = energy_map(:,1) + image(:,1) - image(:,1);
     for i = 2:width
         for j = 1:height
-            energy(j,i)  = energy(j,i-1) + cv(j,i);
-            if j > 1 &&  energy(j-1,i-1) + cr(j,i) < energy(j,i)
-                energy(j,i) = energy(j-1,i-1) + cr(j,i);
+            M(j,i)  = M(j,i-1) + cv(j,i);
+            from(j,i) = j;
+            if j > 1 &&  M(j-1,i-1) + cr(j,i) < M(j,i)
+                M(j,i) = M(j-1,i-1) + cr(j,i);
+                from(j,i) = j - 1;
             end
-            if j < height && energy(j+1,i-1) + cl(j,i) < energy(j,i)
-                energy(j,i) = energy(j+1,i-1) + cl(j,i);
+            if j < height && M(j+1,i-1) + cl(j,i) < M(j,i)
+                M(j,i) = M(j+1,i-1) + cl(j,i);
+                from(j,i) = j + 1;
             end
+            M(j,i) = energy_map(j,i) + M(j,i);
         end
     end
 end

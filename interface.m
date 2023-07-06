@@ -3,7 +3,7 @@ clear
 close all
 
 path = 'Samples dataset\';
-name = 'Dolls';
+name = 'baby';
 
 input = im2double(imread([path, name, '\', name,'.png'])); 
 
@@ -19,4 +19,4 @@ figure,imshow(output,[]);
 title('output');
 
 figure,imshow(energy_map,[]);
-title('energy_map');
+title('energy map');
