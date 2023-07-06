@@ -1,7 +1,6 @@
-function [energy_map,from] = get_horizontal_cumulative_energy(image,energy_map)
-    image = rgb2gray(image);
-    [height,width] = size(image);
-    from = zeros(size(image));
+function [energy_map,from] = get_horizontal_cumulative_energy(energy_map)
+    [height,width] = size(energy_map);
+    from = zeros(size(energy_map));
 
     for i = 2:width
         for j = 1:height

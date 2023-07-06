@@ -1,5 +1,5 @@
 function opt_horizontal_seam = find_opt_horizontal_seam(energy_map,from)
-    [height,width] = size(energy_map);
+    width = size(energy_map,2);
 
     opt_horizontal_seam  = zeros(width,1);
     last_column = energy_map(:,end);
