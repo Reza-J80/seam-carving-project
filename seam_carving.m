@@ -1,6 +1,6 @@
-function [output, energy_map] = seam_carving(path, name, new_height, new_width)
+function [output, energy_map, starting_energy] = seam_carving(path, name, new_height, new_width)
     image = im2double(imread([path, name, '\', name,'.png']));
-    depth = im2double(imread([path, name, '\', name,'_DMap.png'])); 
+    depth = im2double(imread([path, name, '\', name,'_DMap.png']));
     saliency = im2double(imread([path, name, '\', name,'_SMap.png']));
     nearest_activity = ones(size(depth)) * 0.5;
     
@@ -9,13 +9,12 @@ function [output, energy_map] = seam_carving(path, name, new_height, new_width)
     depth = imclose(depth, strel('disk',15));
     saliency = get_improved_saliency(depth, saliency);
     
-    energy_map = get_energy_map(image, saliency, depth, nearest_activity, 0, 0, 0, 0);
-    imshow(energy_map,[]);
-    pause();
+    energy_map = get_energy_map(image, saliency, depth, nearest_activity, 0, 0, 2, 0);
+    starting_energy = energy_map;
     
     if height > new_height
         alpha = max(sum(depth,1)) / height;
-        alpha = alpha ^ 5 * 100;
+        alpha = (alpha ^ 5 * 100 - 0.8) ^ 2;
         while height ~= new_height
             [energy_map,from] = get_horizontal_forward_energy(image,energy_map);
             opt_horizontal_seam = find_opt_horizontal_seam(energy_map,from);

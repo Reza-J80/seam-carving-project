@@ -46,5 +46,5 @@ function [energy_map, updated_saliency, updated_depth, updated_nearest_activity]
     canny = edge(image, 'canny');
     edges = 0.75 * gradient + 0.25 * canny;
     edges = edges / max(max(edges));
-    energy_map = 0.25 * updated_depth + 2 * updated_saliency + 1.5 * edges + alpha * updated_nearest_activity;
+    energy_map = 0.5 * updated_depth + (3 / sqrt(alpha)) * updated_saliency + 1.5 * edges + alpha * updated_nearest_activity;
 end
