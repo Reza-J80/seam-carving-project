@@ -14,7 +14,7 @@ function [output, energy_map, starting_energy] = seam_carving(path, name, new_he
     
     if height > new_height
         alpha = max(sum(depth,1)) / height;
-        alpha = (alpha ^ 5 * 100 - 0.8) ^ 2;
+        alpha = (alpha ^ 5 * 100 - 0.8) ^ 2 + 5;
         while height ~= new_height
             [energy_map,from] = get_horizontal_forward_energy(image,energy_map);
             opt_horizontal_seam = find_opt_horizontal_seam(energy_map,from);
@@ -24,7 +24,7 @@ function [output, energy_map, starting_energy] = seam_carving(path, name, new_he
         end
     else
         alpha = max(sum(depth,2)) / width;
-        alpha = alpha ^ 5 * 100;
+        alpha = alpha ^ 5 * 100 + 6;
         while width ~= new_width
             [energy_map,from] = get_vertical_forward_energy(image,energy_map);
             opt_vertical_seam = find_opt_vertical_seam(energy_map,from);

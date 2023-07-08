@@ -23,9 +23,9 @@ function improved_saliency = get_improved_saliency(depth, saliency)
     mask2 = reshape(masks(2,:,:),size(depth));
     mask3 = reshape(masks(3,:,:),size(depth));
 
-    mask1 = imopen(mask1,strel('disk',25));
-    mask2 = imopen(mask2,strel('disk',20));
-    mask3 = imdilate(mask3,strel('disk',10));
+    %mask1 = imopen(mask1,strel('disk',25));
+    %mask2 = imopen(mask2,strel('disk',20));
+    %mask3 = imdilate(mask3,strel('disk',5));
 
     improved_saliency = max(improved_saliency , mask1 * values(1));
     improved_saliency = max(improved_saliency , mask2 * values(2));
